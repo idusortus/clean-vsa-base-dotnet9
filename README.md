@@ -1,13 +1,3 @@
-# TODO
-- [ ] Incorporate a few external APIs into the template application.
-
-## Overview
-1. Pick an API: [DogAPI](https://dogapi.dog/docs/api-v2)
-2. Create an Interface (Abstraction) in /Application
-3. Implement the Interface in /Infrastructure as a Service
-4. Register the Service in the DI Container
-5. Incorporate Service in a Feature Handler/Command
-6. Use Service in an Endpoint
 
 # Simple Clean/Vertical Slice Template for .Net 9 Webapi
 ```bash
@@ -19,15 +9,18 @@
     │   ├───Logs
     │   ├───Middleware
     │   └───Properties
-    ├───Application
+ ├───Application
     │   ├───Abstractions
-    │   │   └───Behaviors
+    │   │   ├───Behaviors
+    │   │   ├───External
+    │   │   └───Messaging
     │   ├───Features
     │   │   └───Quotes
     ├───Domain
     │   └───Quotes
     ├───Infrastructure
     │   ├───Database
+    │   ├───External (e.g., HttpClients)
     │   ├───Migrations
     └───SharedCore
 ```
@@ -101,8 +94,6 @@ These codes can be returned by almost any endpoint.
 
 ### How to Implement This in .NET
 
-ASP.NET Core's `ControllerBase` provides convenient helper methods that produce these exact results for you.
-
 *   `Ok(object)` -> **200 OK** with a body.
 *   `CreatedAtAction("ActionName", routeValues, object)` -> **201 Created** with a `Location` header and a body.
 *   `NoContent()` -> **204 No Content**.
@@ -111,5 +102,3 @@ ASP.NET Core's `ControllerBase` provides convenient helper methods that produce 
 *   `Conflict(object)` -> **409 Conflict** with a body.
 *   `Forbid()` -> **403 Forbidden**.
 *   `Unauthorized()` -> **401 Unauthorized**.
-
-By consistently using these helpers and following the conventions in the table, you will create a professional, predictable, and easy-to-use API.
